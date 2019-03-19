@@ -23,9 +23,9 @@ import time
 # primary vendor to check hashes against in VirusTotal
 vendor = 'McAfee'
 # input_file expects a plain txt document with one file hash per line
-input_file = 'hashlist.txt'
+input_file = 'list.txt'
 # output_file will be a CSV
-output_file = 'hash_check.csv'
+output_file = 'hash_check2.csv'
 # VirusTotal API key. You can also replace the following line with apikey = 'key'
 from credentials import apikey
 
@@ -63,11 +63,11 @@ def check_hash( apikey, resource ):
         else:
             print("Response code {}. Sleeping 60 seconds...".format(response.status_code))
             time.sleep(60)
-            check_hash(apikey, resource)
+            return check_hash(apikey, resource)
     except requests.exceptions.RequestException as error:
         print(error)
         time.sleep(5)
-        check_hash(apikey, resource)
+        return check_hash(apikey, resource)
 
 def main():
     with open(input_file) as file:
